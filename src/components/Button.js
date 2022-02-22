@@ -8,9 +8,6 @@ export default function Button({ confirm, children, danger, disabled, onClick })
       "button--confirm": confirm,
       "button--danger": danger
     });
-
-  
-
    return (
       <button
         className={buttonClass}
