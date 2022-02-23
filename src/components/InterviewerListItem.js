@@ -12,7 +12,7 @@ const InterviewerListItem = ({ name, avatar, selected, setInterviewer }) => {
 
 
   return (
-    <li className={interviewerClass} onClick={setInterviewer}>
+    <li className={interviewerClass} onClick={setInterviewer} selected={selected}>
       <img
         className={interviewerClass}
         src={avatar}
