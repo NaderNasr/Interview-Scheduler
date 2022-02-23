@@ -11,6 +11,9 @@ import DayListItem from "components/DayListItem"
 import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
 
+import Appointment from "components/Appointment/index.js";
+
+
 
 
 storiesOf("Button", module)
@@ -133,5 +136,12 @@ storiesOf("InterviewerList", module)
       onChange={action("setInterviewer")}
     />
   ));
+
+  storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("No Appointment", () => <Appointment/>)
+  .add("Appointment with time", () => <Appointment time="12pm"/>)
 
 
