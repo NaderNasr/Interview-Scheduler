@@ -92,11 +92,11 @@ export default function Application(props) {
             onChange={setDayName}
           />
 
-          <InterviewerList
+          {/* <InterviewerList
             interviewers={interviewers}
             value={interviewerName}
             onChange={setInterviewerName}
-          />
+          /> */}
 
         </nav>
         <img
