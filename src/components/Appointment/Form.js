@@ -20,8 +20,12 @@ const Form = ({ student, interviewerList, onCancel, onSave }) => {
 
   const validate = () => {
     if (studentName === '') {
-      setError("Student name cannot be blank");
-      return 
+      return setError("Student name cannot be blank");
+      
+    }
+
+    if(interviewerID === null){
+      return setError("Please pick an interviewer");
     }
   
     setError('');
@@ -40,10 +44,6 @@ const Form = ({ student, interviewerList, onCancel, onSave }) => {
             placeholder="Enter Student Name"
             onChange={(event) => setStudentName(event.target.value)}
             value={studentName}
-          /*
-            This must be a controlled component
-            your code goes here
-          */
           />
           <section className="appointment__validation">{error}</section>
         </form>
