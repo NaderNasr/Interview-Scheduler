@@ -1,8 +1,48 @@
 import React, { useState } from "react";
 import DayList from "./DayList";
+import Appointment from './Appointment';
 
 import "components/Application.scss";
 import InterviewerList from "./InterviewerList";
+
+const appointments = [
+  {
+    id: 1,
+    time: "12pm",
+  },
+  {
+    id: 2,
+    time: "1pm",
+    interview: {
+      student: "Lydia Miller-Jones",
+      interviewer: {
+        id: 3,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  },
+  {
+    id: 3,
+    time: "2pm",
+  },
+  {
+    id: 4,
+    time: "3pm",
+    interview: {
+      student: "Archie Andrews",
+      interviewer: {
+        id: 4,
+        name: "Cohana Roy",
+        avatar: "https://i.imgur.com/FK8V841.jpg",
+      }
+    }
+  },
+  {
+    id: 5,
+    time: "4pm",
+  }
+];
 
 export default function Application(props) {
   const [dayName, setDayName] = useState("Monday");
@@ -16,7 +56,7 @@ export default function Application(props) {
     { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
     { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
   ];
-  
+
   const days = [
     {
       id: 1,
@@ -34,7 +74,7 @@ export default function Application(props) {
       spots: 0
     },
   ];
-  
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -52,11 +92,11 @@ export default function Application(props) {
             onChange={setDayName}
           />
 
-          <InterviewerList 
-            interviewers={interviewers} 
+          <InterviewerList
+            interviewers={interviewers}
             value={interviewerName}
             onChange={setInterviewerName}
-            />
+          />
 
         </nav>
         <img
@@ -67,7 +107,13 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
+        {appointments.map((appointment) => (
+          <Appointment 
+            key={appointment.id} 
+            {...appointment} 
+            />
+          ))
+        }
       </section>
     </main>
   );
