@@ -19,13 +19,13 @@ const Form = ({ student, interviewerList, onCancel, onSave }) => {
   }
 
   const validate = () => {
-    if (student === "") {
-      return setError("Student name cannot be blank");
-      
+    if (studentName === '') {
+      setError("Student name cannot be blank");
+      return 
     }
   
-    setError("");
-    onSave(student, interviewerID);
+    setError('');
+    onSave(studentName, interviewerID);
   }
 
 
@@ -45,6 +45,7 @@ const Form = ({ student, interviewerList, onCancel, onSave }) => {
             your code goes here
           */
           />
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
           value={interviewerID}
