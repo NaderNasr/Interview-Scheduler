@@ -25,11 +25,23 @@
 //       time: "4pm",
 //       interview: { student: "Chad Takahashi", interviewer: 2 }
 //     }
+//   },
+//   interviewers: {
+//     "1": {
+//       "id": 1,
+//       "name": "Sylvia Palmer",
+//       "avatar": "https://i.imgur.com/LpaY82x.png"
+//     },
+//     "2": {
+//       id: 2,
+//       name: "Tori Malcolm",
+//       avatar: "https://i.imgur.com/Nmx0Qxo.png"
+//     }
 //   }
 // };
 
 
- export function getAppointmentsForDay(state, days) {
+export function getAppointmentsForDay(state, days) {
   let appointmentId = [];
   for (const day of state.days) {
     if (day.name === days) {
@@ -38,10 +50,29 @@
   }
   const scheduledAppointment = [];
   for (const id of appointmentId) {
-    
+
     scheduledAppointment.push(state.appointments[id]);
   }
-  
+
   return scheduledAppointment;
 }
-// console.log(getAppointmentsForDay(state, "Tuesday"))
+
+export function getInterview (state, interview) {
+  const interviewersID = Object.values(state.interviewers)
+  if(interview === null){
+    return null;
+  }
+  for(const id of interviewersID){
+    
+    if(id.id === interview['interviewer']){      
+      const student = interview.student
+      const interviewer = id
+      return {student, interviewer}
+    }
+    
+  }
+  return null;
+}
+
+// console.log(getInterview(state, state.appointments["1"].interview))
+
