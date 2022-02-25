@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import DayList from "./DayList";
 import Appointment from './Appointment';
-
+// import InterviewerList from "./InterviewerList";
 import "components/Application.scss";
-import InterviewerList from "./InterviewerList";
+
 
 const appointments = [
   {
@@ -44,9 +45,20 @@ const appointments = [
   }
 ];
 
-export default function Application(props) {
-  const [dayName, setDayName] = useState("Monday");
+const Application = (props) => {
+  const [dayName, setDayName] = useState([]);
   const [interviewerName, setInterviewerName] = useState("");
+
+  useEffect(() => {
+    axios.get(`/api/days`)
+      .then((day) => {
+        // console.log([...day.data])
+        setDayName([...day.data])
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }, [])
 
 
   const interviewers = [
@@ -57,23 +69,23 @@ export default function Application(props) {
     { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
   ];
 
-  const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0
-    },
-  ];
+  // const days = [
+  //   {
+  //     id: 1,
+  //     name: "Monday",
+  //     spots: 2,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Tuesday",
+  //     spots: 5,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Wednesday",
+  //     spots: 0
+  //   },
+  // ];
 
   return (
     <main className="layout">
@@ -87,7 +99,7 @@ export default function Application(props) {
         <nav className="sidebar__menu">
 
           <DayList
-            days={days}
+            days={dayName}
             value={dayName}
             onChange={setDayName}
           />
@@ -108,13 +120,15 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appointments.map((appointment) => (
-          <Appointment 
-            key={appointment.id} 
-            {...appointment} 
-            />
-          ))
+          <Appointment
+            key={appointment.id}
+            {...appointment}
+          />
+        ))
         }
       </section>
     </main>
   );
 }
+
+export default Application
