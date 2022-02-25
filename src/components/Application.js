@@ -3,11 +3,11 @@ import axios from "axios";
 import DayList from "./DayList";
 import Appointment from './Appointment';
 import "components/Application.scss";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 
 const GET_DAYS = `/api/days`
 const GET_APPOINTMENTS = `/api/appointments`
-// const GET_INTERVIEWERS = `/api/interviewers`
+const GET_INTERVIEWERS = `/api/interviewers`
 
 const Application = () => {
 
@@ -15,7 +15,7 @@ const Application = () => {
     day: "Monday",
     days: [],
     appointments: {},
-    // interviewers: {}
+    interviewers: {}
   });
 
 
@@ -27,14 +27,14 @@ const Application = () => {
     Promise.all([
       axios.get(GET_DAYS),
       axios.get(GET_APPOINTMENTS),
-      // axios.get(GET_INTERVIEWERS)
+      axios.get(GET_INTERVIEWERS)
     ]).then((all) => {
       // const [days, second, third] = all;
       setState(prev => ({
         ...prev,
         days: all[0].data,
         appointments: all[1].data,
-        // interviewers: all[2].data
+        interviewers: all[2].data
       }));
       // console.log('days: ', days.data, 'appointments: ', second.data, 'interviewers: ', third.data);
     })
@@ -43,7 +43,7 @@ const Application = () => {
       });
   }, [])
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
 
   return (
@@ -75,6 +75,7 @@ const Application = () => {
         {dailyAppointments.map((appointment) => (
           <Appointment
             key={appointment.id}
+            interview={getInterview(state, appointment.interview)}
             {...appointment}
           />
         ))
