@@ -1,5 +1,5 @@
 import React from 'react';
-import './DayListItem.scss';
+import '../components/styles/DayListItem.scss';
 import classNames from 'classnames';
 
 export default function DayListItem({ name, spots, selected, setDay }) {

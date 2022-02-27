@@ -3,7 +3,7 @@ import axios from "axios";
 import DayList from "./DayList";
 import Appointment from './Appointment';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-import "components/Application.scss";
+import "../components/styles/Application.scss";
 
 const GET_DAYS = `/api/days`
 const GET_APPOINTMENTS = `/api/appointments`

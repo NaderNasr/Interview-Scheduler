@@ -1,5 +1,5 @@
 import React from 'react';
-import "components/InterviewerListItem.scss";
+import "../components/styles/InterviewerListItem.scss";
 import classNames from 'classnames';
 
 

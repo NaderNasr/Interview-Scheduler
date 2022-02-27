@@ -1,5 +1,5 @@
 import React from 'react';
-import './InterviewerList.scss';
+import '../components/styles/InterviewerList.scss';
 import InterviewerListItem from './InterviewerListItem';
 
 const InterviewerList = ({ onChange, interviewers, value }) => {
