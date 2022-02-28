@@ -58,10 +58,10 @@ export function getAppointmentsForDay(state, days) {
 }
 
 export function getInterview (state, interview) {
-  const interviewersID = Object.values(state.interviewers)
   if(interview === null){
     return null;
   }
+  const interviewersID = Object.values(state.interviewers)
   for(const id of interviewersID){
     
     if(id.id === interview['interviewer']){      
@@ -73,6 +73,8 @@ export function getInterview (state, interview) {
   }
   return null;
 }
+
+
 
 export function getInterviewersForDay(state, days) {
   //... returns an array of appointments for that day
@@ -91,5 +93,5 @@ export function getInterviewersForDay(state, days) {
 
   return scheduledInterview;
 }
-// console.log(getInterview(state, state.appointments["1"].interview))
+// console.log(getInterview(state, state.appointments["3"].interview))
 
