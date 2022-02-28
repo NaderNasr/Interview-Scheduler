@@ -38,6 +38,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
     };
 
     bookInterview(id, interview)
+    transition(SHOW)
   }
 
 
