@@ -7,6 +7,7 @@ import Status from './Status';
 import useVisualMode from "hooks/useVisualMode";
 
 import './styles.scss';
+import Confirm from './Confirm';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -14,6 +15,7 @@ const CREATE = "CREATE";
 
 const SAVING = "SAVING";
 const DELETE = "DELETE";
+const CONFIRM = "CONFIRM";
 
 
 
@@ -53,6 +55,9 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
   const deleteItem = () => {
     transition(DELETE);
     deleteInterview(id)
+    .then(() => {
+      transition(CONFIRM);
+    })
       .then(() => {
         transition(EMPTY);
       })
@@ -71,7 +76,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
             student={interview.student}
             interviewer={interview.interviewer.name}
             bookInterview={bookInterview}
-            onDelete={deleteItem}
+            onDelete={() => transition(CONFIRM)}
           />
         )}
         {mode === CREATE && (
@@ -87,6 +92,9 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
 
         {mode === DELETE && (
           <Status message={'Deleting'} />
+        )}
+        {mode === CONFIRM && (
+          <Confirm message={"Are you sure?"} onConfirm={deleteItem} onCancel={back}/>
         )}
 
 
