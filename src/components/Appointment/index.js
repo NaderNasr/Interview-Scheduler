@@ -11,6 +11,7 @@ import './styles.scss';
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+
 const SAVING = "SAVING";
 
 
@@ -73,7 +74,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
             onSave={save}
           />)}
         {mode === SAVING && (
-          <Status />
+          <Status message={'Saving'}/>
         )}
 
 
