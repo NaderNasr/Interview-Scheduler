@@ -46,7 +46,20 @@ const Application = () => {
   // const InterviewersForDay = getInterviewersForDay(state, state.day);
 
   const bookInterview = (id, interview) => {
-    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    // console.log(id, interview);
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    setState({
+      ...state,
+      appointments
+    })
   }
 
 
@@ -87,7 +100,7 @@ const Application = () => {
           />
         ))
         }
-        {}
+        { }
       </section>
     </main>
   );
