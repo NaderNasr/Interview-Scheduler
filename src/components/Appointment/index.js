@@ -43,8 +43,8 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
       interviewer
     };
     transition(SAVING)
-    bookInterview(id, interview)
-    //add a .then after because its a promise, it needs to finish retrieving the data FIRST -THEN transition to SHOW
+    bookInterview(id, interview)// this is a promise
+    // it needs to finish retrieving the data FIRST -THEN transition to SHOW
       .then(() => {
         transition(SHOW)
       })
