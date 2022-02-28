@@ -51,7 +51,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
   }
 
   const deleteItem = () => {
-    
+    transition(DELETE);
     deleteInterview(id)
       .then(() => {
         transition(EMPTY);
