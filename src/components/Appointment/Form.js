@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import InterviewerList from 'components/InterviewerList';
 import React, { useState } from 'react';
 
-const Form = ({ student, interviewerList, onCancel, onSave }) => {
+const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => {
 
   const [studentName, setStudentName] = useState(student || "");
   const [interviewerID, setInterviewerID] = useState(interviewerList || null);
@@ -24,9 +24,9 @@ const Form = ({ student, interviewerList, onCancel, onSave }) => {
       
     }
 
-    if(interviewerID === null){
-      return setError("Please pick an interviewer");
-    }
+    // if(interviewerID === null){
+    //   return setError("Please pick an interviewer");
+    // }
   
     setError('');
     onSave(studentName, interviewerID);

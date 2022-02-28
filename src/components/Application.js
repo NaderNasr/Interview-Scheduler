@@ -45,6 +45,10 @@ const Application = () => {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   // const InterviewersForDay = getInterviewersForDay(state, state.day);
 
+  const bookInterview = (id, interview) => {
+    console.log(id, interview);
+  }
+
 
   return (
     <main className="layout">
@@ -75,9 +79,11 @@ const Application = () => {
         {dailyAppointments.map((appointment) => (
           <Appointment
             key={appointment.id}
+            id={appointment.id}
             {...appointment}
             interview={getInterview(state, appointment.interview)}
             interviewers={getInterviewersForDay(state, state.day)}
+            bookInterview={bookInterview}
           />
         ))
         }

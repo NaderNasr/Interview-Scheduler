@@ -13,7 +13,7 @@ const CREATE = "CREATE";
 
 
 
-const Appointment = ({ time, interview, interviewers }) => {
+const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
 
   const {
     mode,
@@ -31,6 +31,18 @@ const Appointment = ({ time, interview, interviewers }) => {
     }
   }
 
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    bookInterview(id, interview)
+  }
+
+
+
+
   return (
     <>
       <article className="appointment">
@@ -41,13 +53,16 @@ const Appointment = ({ time, interview, interviewers }) => {
           <Show
             student={interview.student}
             interviewer={interview.interviewer.name}
+            bookInterview={bookInterview}
           />
         )}
         {mode === CREATE && (
-        <Form
-          interviewerList={interviewers}
-          onCancel = {back}
-        />)}
+          <Form
+            interviewerList={interviewers}
+            onCancel={back}
+            bookInterview={bookInterview}
+            onSave={save}
+          />)}
 
 
       </article>
