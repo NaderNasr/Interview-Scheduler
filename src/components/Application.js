@@ -50,7 +50,7 @@ const Application = () => {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    console.log(id, interview);
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
@@ -58,14 +58,28 @@ const Application = () => {
     //add return 
     return axios.put(`/api/appointments/${id}`, appointment)
       .then((res) => {
+        console.log(res.data)
+        setState({
+          ...state,
+          appointments
+        })
+      })
+      .catch((e) => {
+        console.log('axios-PUT: ', e.message)
+      })
+  }
+
+  const deleteInterview = (id) => {
+    console.log(id)
+    return axios.delete(`/api/appointments/${id}`)
+    .then((res) => {
       console.log(res.data)
       setState({
-        ...state,
-        appointments
+        ...state
       })
     })
     .catch((e) => {
-      console.log('axios-PUT: ',e.message)
+      console.log('axios-Delete: ', e.message)
     })
   }
 
@@ -104,10 +118,10 @@ const Application = () => {
             interview={getInterview(state, appointment.interview)}
             interviewers={getInterviewersForDay(state, state.day)}
             bookInterview={bookInterview}
+            deleteInterview={deleteInterview}
           />
         ))
         }
-        { }
       </section>
     </main>
   );
