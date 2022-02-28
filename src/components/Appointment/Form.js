@@ -6,7 +6,9 @@ const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => 
 
   const [studentName, setStudentName] = useState(student || "");
   const [interviewerID, setInterviewerID] = useState(interviewerList || null);
-  const [error, setError] = useState("");
+  const [noNameError, setNoNameError] = useState("");
+  const [noInterviewerError, setNoInterviewerError] = useState("");
+
 
   const reset = () => {
     setStudentName('');
@@ -20,15 +22,19 @@ const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => 
 
   const validate = () => {
     if (studentName === '') {
-      return setError("Student name cannot be blank");
+      
+      return setNoNameError("Student name cannot be blank");
       
     }
+    // const len = InterviewerList
+    console.log(InterviewerList.length)
+    console.log(interviewerID.length)
 
-    // if(interviewerID === null){
-    //   return setError("Please pick an interviewer");
-    // }
-  
-    setError('');
+    if (interviewerID.length) {
+      return setNoInterviewerError("Please pick an interviewer");
+    }
+
+    setNoNameError('');
     onSave(studentName, interviewerID);
   }
 
@@ -37,6 +43,7 @@ const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => 
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+        <section className="appointment__validation">{noInterviewerError}</section>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -45,7 +52,7 @@ const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => 
             onChange={(event) => setStudentName(event.target.value)}
             value={studentName}
           />
-          <section className="appointment__validation">{error}</section>
+          <section className="appointment__validation">{noNameError}</section>
         </form>
         <InterviewerList
           value={interviewerID}
@@ -58,6 +65,7 @@ const Form = ({ student, interviewerList, onCancel, onSave, bookInterview }) => 
           <Button danger onClick={cancel}>Cancel</Button>
           <Button confirm onClick={validate}>Save</Button>
         </section>
+        
       </section>
     </main>
   )
