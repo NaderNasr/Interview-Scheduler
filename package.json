@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.26.0",
     "classnames": "^2.2.6",
+    "flow-bin": "^0.172.0",
     "node-sass": "npm:sass@^1.49.8",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
@@ -19,7 +20,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public --ci",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "flow": "flow"
   },
   "browserslist": {
     "production": [
@@ -34,7 +36,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-flow": "^7.16.7",
     "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-backgrounds": "^5.0.10",
     "@storybook/addon-links": "^5.0.10",
