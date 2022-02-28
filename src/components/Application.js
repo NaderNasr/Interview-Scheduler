@@ -71,16 +71,24 @@ const Application = () => {
 
   const deleteInterview = (id) => {
     console.log(id)
+    const appointments = { 
+      ...state.appointments 
+    }
+    // console.log(appointments[id].interview)
+    appointments[id].interview = null
     return axios.delete(`/api/appointments/${id}`)
-    .then((res) => {
-      console.log(res.data)
-      setState({
-        ...state
+      .then(() => {
+        setState({
+          ...state,
+          appointments
+        })
+      console.log('DATA DELETED',state.appointments)
+
       })
-    })
-    .catch((e) => {
-      console.log('axios-Delete: ', e.message)
-    })
+
+      .catch((e) => {
+        console.log('axios-Delete: ', e.message)
+      })
   }
 
 
