@@ -13,10 +13,11 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 
 const SAVING = "SAVING";
+const DELETE = "DELETE";
 
 
 
-const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
+const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteInterview }) => {
 
   const {
     mode,
@@ -35,23 +36,29 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
   }
 
   const save = (name, interviewer) => {
-    console.log('name: ', interviewer)
-
-    // if(!interviewer) return null;
 
     const interview = {
       student: name,
       interviewer
     };
+    console.log('interviewOBJ: ->', interview)
     transition(SAVING)
     bookInterview(id, interview)// this is a promise
-    // it needs to finish retrieving the data FIRST -THEN transition to SHOW
+      // it needs to finish retrieving the data FIRST -THEN transition to SHOW
       .then(() => {
         transition(SHOW)
       })
   }
 
-  console.log('interview: ', interview)
+  const deleteItem = () => {
+    
+    deleteInterview(id)
+      .then(() => {
+        transition(EMPTY);
+      })
+  }
+
+  // console.log('interview: ', interview)
 
 
   return (
@@ -64,6 +71,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
             student={interview.student}
             interviewer={interview.interviewer.name}
             bookInterview={bookInterview}
+            onDelete={deleteItem}
           />
         )}
         {mode === CREATE && (
@@ -74,7 +82,11 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
             onSave={save}
           />)}
         {mode === SAVING && (
-          <Status message={'Saving'}/>
+          <Status message={'Saving'} />
+        )}
+
+        {mode === DELETE && (
+          <Status message={'Deleting'} />
         )}
 
 
