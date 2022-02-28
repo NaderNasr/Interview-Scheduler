@@ -50,15 +50,22 @@ const Application = () => {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    // console.log(id, interview);
+    console.log(id, interview);
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    
-    setState({
-      ...state,
-      appointments
+    //add return 
+    return axios.put(`/api/appointments/${id}`, appointment)
+      .then((res) => {
+      console.log(res.data)
+      setState({
+        ...state,
+        appointments
+      })
+    })
+    .catch((e) => {
+      console.log('axios-PUT: ',e.message)
     })
   }
 
