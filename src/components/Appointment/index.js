@@ -46,15 +46,12 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
     transition(SAVING)
     bookInterview(id, interview)// this is a promise
       // it needs to finish retrieving the data FIRST -THEN transition to SHOW
-      
-      
       .then(() => {
-        transition(SHOW)
+        transition(SHOW);
       })
       .catch(() => {
         transition(ERROR_SAVE, true);
       })
-      
   }
 
   const deleteItem = () => {
@@ -90,7 +87,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
         {/* edit show */}
         {mode === EDIT && (
           <Form
-            name={interview.student} 
+            name={interview.student}
             interviewerSelected={interview.interviewer.id}
             interviewerList={interviewers}
             onCancel={back}
