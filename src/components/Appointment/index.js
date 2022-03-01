@@ -7,6 +7,7 @@ import Status from './Status';
 import Confirm from './Confirm';
 import useVisualMode from "hooks/useVisualMode";
 import './styles.scss';
+import Error from './Error';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -15,6 +16,9 @@ const SAVING = "SAVING";
 const DELETE = "DELETE";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE"
+const ERROR_DELETE = "ERROR_DELETE"
+
 
 
 
@@ -42,19 +46,29 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
     transition(SAVING)
     bookInterview(id, interview)// this is a promise
       // it needs to finish retrieving the data FIRST -THEN transition to SHOW
+      
+      
       .then(() => {
         transition(SHOW)
       })
+      .catch(() => {
+        transition(ERROR_SAVE, true);
+      })
+      
   }
 
   const deleteItem = () => {
-    transition(DELETE);
+    transition(DELETE, true);
     deleteInterview(id)
       .then(() => {
         transition(CONFIRM);
       })
       .then(() => {
         transition(EMPTY);
+      })
+      .catch((e) => {
+        console.log(e.message)
+        transition(ERROR_DELETE, true);
       })
   }
 
@@ -100,6 +114,12 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
         )}
         {mode === CONFIRM && (
           <Confirm message={"Are you sure?"} onConfirm={deleteItem} onCancel={back} />
+        )}
+        {mode === ERROR_DELETE && (
+          <Error message={"Couldn't Delete, Please try again"} onClose={back} />
+        )}
+        {mode === ERROR_SAVE && (
+          <Error message={"Couldn't Save, Please try again"} onClose={back} />
         )}
 
 
