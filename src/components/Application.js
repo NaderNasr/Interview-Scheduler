@@ -64,9 +64,8 @@ const Application = () => {
           appointments
         })
       })
-      .catch((e) => {
-        console.log('axios-PUT: ', e.message)
-      })
+           //set catch error in appointments
+
   }
 
   const deleteInterview = (id) => {
@@ -84,9 +83,7 @@ const Application = () => {
         })
         // console.log('DATA DELETED',state.appointments)
       })
-      .catch((e) => {
-        console.log('axios-Delete: ', e.message)
-      })
+     //set catch error in appointments
   }
 
 
