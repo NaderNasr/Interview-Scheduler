@@ -21,17 +21,22 @@ const Form = ({ interviewerList, onCancel, onSave, name, interviewerSelected }) 
   }
 
   const validate = () => {
-    if (studentName === '') {
+    if (!studentName && interviewerID) {
+      setNoInterviewerError('')
       return setNoNameError("Student name cannot be blank");
     }
-    // const len = InterviewerList
-    // console.log(InterviewerList.length)
-    // console.log(interviewerID.length)
 
-    if (interviewerID.length) {
+    if (!interviewerID && studentName) {
+      setNoNameError('')
       return setNoInterviewerError("Please pick an interviewer");
     }
 
+    if(!interviewerID && !studentName){
+      setNoNameError("Student name cannot be blank");
+      return setNoInterviewerError("Please pick an interviewer");
+    }
+
+    setNoInterviewerError('')
     setNoNameError('');
     onSave(studentName, interviewerID);
   }
@@ -40,7 +45,6 @@ const Form = ({ interviewerList, onCancel, onSave, name, interviewerSelected }) 
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
-          <section className="appointment__validation">{noInterviewerError}</section>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -56,6 +60,7 @@ const Form = ({ interviewerList, onCancel, onSave, name, interviewerSelected }) 
           onChange={(id) => setInterviewerID(id)}
           interviewers={interviewerList}
         />
+        <section className="appointment__validation">{noInterviewerError}</section>
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
