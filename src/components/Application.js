@@ -71,8 +71,8 @@ const Application = () => {
 
   const deleteInterview = (id) => {
     console.log(id)
-    const appointments = { 
-      ...state.appointments 
+    const appointments = {
+      ...state.appointments
     }
     // console.log(appointments[id].interview)
     appointments[id].interview = null
@@ -82,14 +82,15 @@ const Application = () => {
           ...state,
           appointments
         })
-      console.log('DATA DELETED',state.appointments)
-
+        // console.log('DATA DELETED',state.appointments)
       })
-
       .catch((e) => {
         console.log('axios-Delete: ', e.message)
       })
   }
+
+
+  
 
 
   return (
