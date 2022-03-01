@@ -63,13 +63,11 @@ export function getInterview (state, interview) {
   }
   const interviewersID = Object.values(state.interviewers)
   for(const id of interviewersID){
-    
-    if(id.id === interview['interviewer']){      
+    if(id.id === interview['interviewer']){
       const student = interview.student
       const interviewer = id
       return {student, interviewer}
     }
-    
   }
   return null;
 }
