@@ -4,28 +4,23 @@ import Header from './Header';
 import Show from './Show';
 import Form from './Form';
 import Status from './Status';
-import useVisualMode from "hooks/useVisualMode";
-
-import './styles.scss';
 import Confirm from './Confirm';
+import useVisualMode from "hooks/useVisualMode";
+import './styles.scss';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-
 const SAVING = "SAVING";
 const DELETE = "DELETE";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
 
 
 
 const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteInterview }) => {
 
-  const {
-    mode,
-    transition,
-    back
-  } = useVisualMode(
+  const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );
 
@@ -55,15 +50,13 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
   const deleteItem = () => {
     transition(DELETE);
     deleteInterview(id)
-    .then(() => {
-      transition(CONFIRM);
-    })
+      .then(() => {
+        transition(CONFIRM);
+      })
       .then(() => {
         transition(EMPTY);
       })
   }
-
-  // console.log('interview: ', interview)
 
 
   return (
@@ -77,8 +70,20 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
             interviewer={interview.interviewer.name}
             bookInterview={bookInterview}
             onDelete={() => transition(CONFIRM)}
+            onEdit={() => transition(EDIT)}
           />
         )}
+        {/* edit show */}
+        {mode === EDIT && (
+          <Form
+            name={interview.student} 
+            interviewerSelected={interview.interviewer.id}
+            interviewerList={interviewers}
+            onCancel={back}
+            bookInterview={bookInterview}
+            onSave={save}
+          />)}
+
         {mode === CREATE && (
           <Form
             interviewerList={interviewers}
@@ -94,7 +99,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
           <Status message={'Deleting'} />
         )}
         {mode === CONFIRM && (
-          <Confirm message={"Are you sure?"} onConfirm={deleteItem} onCancel={back}/>
+          <Confirm message={"Are you sure?"} onConfirm={deleteItem} onCancel={back} />
         )}
 
 
