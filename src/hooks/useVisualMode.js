@@ -7,11 +7,11 @@ export default function useVisualMode(initial) {
   //transition
   function transition(current, replace) {
     if (!replace) {
-      // setMode(current)
-      // history.push(current);
-      setHistory(prev => ([...prev, mode]));
-    } 
-    setMode(current); 
+      setMode(current)
+      history.push(current);
+      // setHistory(prev => ([...prev, mode]));
+    }
+    setMode(current);
   }
   function back() {
     if (history.length > 1) {
