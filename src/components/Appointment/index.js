@@ -69,7 +69,6 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
       })
   }
 
-
   return (
     <>
       <article className="appointment">
@@ -88,7 +87,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview, deleteI
         {mode === EDIT && (
           <Form
             name={interview.student}
-            interviewerSelected={interview.interviewer.id}
+            selectedInterviewerId={interview.interviewer.id}
             interviewerList={interviewers}
             onCancel={back}
             bookInterview={bookInterview}
