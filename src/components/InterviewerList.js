@@ -24,6 +24,10 @@ const InterviewerList = ({ onChange, interviewers, value }) => {
   )
 }
 
+InterviewerList.defaultProps = {
+  interviewers: []
+};
+
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 };
