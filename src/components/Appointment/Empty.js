@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const Empty = ({onAdd}) => {
+const Empty = ({ onAdd }) => {
   return (
     <main className="appointment__add">
       <img
@@ -10,7 +10,7 @@ const Empty = ({onAdd}) => {
         onClick={onAdd}
       />
     </main>
-  )
-}
+  );
+};
 
-export default Empty
+export default Empty;

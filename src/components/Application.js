@@ -1,19 +1,18 @@
-import React from "react";
-import DayList from "./DayList";
+import React from 'react';
+import DayList from './DayList';
 import Appointment from './Appointment';
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-import "../components/styles/Application.scss";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from 'helpers/selectors';
+import '../components/styles/Application.scss';
 
-import useApplicationData from "../hooks/useApplicationData";
+import useApplicationData from '../hooks/useApplicationData';
 
 const Application = () => {
-
-  const {
-    state,
-    setDay,
-    bookInterview,
-    deleteInterview
-  } = useApplicationData()
+  const { state, setDay, bookInterview, deleteInterview } =
+    useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -27,20 +26,13 @@ const Application = () => {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-
-          <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
-          />
-
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
-
       </section>
       <section className="schedule">
         {dailyAppointments.map((appointment) => (
@@ -53,12 +45,11 @@ const Application = () => {
             bookInterview={bookInterview}
             deleteInterview={deleteInterview}
           />
-        ))
-        }
+        ))}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
-}
+};
 
-export default Application
+export default Application;

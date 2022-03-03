@@ -20,15 +20,14 @@ const InterviewerList = ({ onChange, interviewers, value }) => {
         ))}
       </ul>
     </section>
-
-  )
-}
+  );
+};
 
 InterviewerList.defaultProps = {
-  interviewers: []
+  interviewers: [],
 };
 
 InterviewerList.propTypes = {
-  interviewers: PropTypes.array.isRequired
+  interviewers: PropTypes.array.isRequired,
 };
-export default InterviewerList
+export default InterviewerList;
