@@ -84,7 +84,7 @@ describe("Form", () => {
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
-      <Form interviewerList={interviewerList} onSave={onSave} selectedInterviewerId={3} name={'Mildred Nazir'} />
+      <Form interviewerList={interviewerList} onSave={onSave} selectedInterviewerId={3} />
     );
 
     fireEvent.click(getByText("Save"));
