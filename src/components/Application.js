@@ -35,6 +35,7 @@ const Application = () => {
         />
       </section>
       <section className="schedule">
+      {/* Mapping getAppointmentsForDay over Appointment component to get all appointments for the selected day  */}
         {dailyAppointments.map((appointment) => (
           <Appointment
             key={appointment.id}

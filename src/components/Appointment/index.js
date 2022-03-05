@@ -43,29 +43,37 @@ const Appointment = ({
       student: name,
       interviewer,
     };
-    console.log('interviewOBJ: ->', interview);
+    //transition to saving component
     transition(SAVING);
-    bookInterview(id, interview) // this is a promise
-      // it needs to finish retrieving the data FIRST -THEN transition to SHOW
+    bookInterview(id, interview)
+    //this is a promise it needs to finish retrieving the data FIRST -THEN transition to SHOW
       .then(() => {
+    //transition to show component
         transition(SHOW);
       })
       .catch(() => {
+    //transition to error component if error was caught by the promise
+    //set replace (useVisualMode custom hook) to true
         transition(ERROR_SAVE, true);
       });
   };
 
   const deleteItem = () => {
+    //transition to delete component, with true boolean for to activate the replace custom hook so that the user clicks the exit button out once rather than twice,
+    //set replace (useVisualMode custom hook) to true
     transition(DELETE, true);
+    //While user clicks delete, the Confirm component transitions to a confirm
     deleteInterview(id)
       .then(() => {
         transition(CONFIRM);
       })
+      //transitions to a new empty component
       .then(() => {
         transition(EMPTY);
       })
       .catch((e) => {
         console.log(e.message);
+    //set replace (useVisualMode custom hook) to true
         transition(ERROR_DELETE, true);
       });
   };
@@ -84,7 +92,7 @@ const Appointment = ({
             onEdit={() => transition(EDIT)}
           />
         )}
-        {/* edit show */}
+        {/* The edit mode edits the Form component */}
         {mode === EDIT && (
           <Form
             name={interview.student}
@@ -95,7 +103,7 @@ const Appointment = ({
             onSave={save}
           />
         )}
-
+          {/* The Create mode creates a new Form */}
         {mode === CREATE && (
           <Form
             interviewerList={interviewers}
@@ -104,9 +112,13 @@ const Appointment = ({
             onSave={save}
           />
         )}
+        {/* Show the user a saving animation */}
         {mode === SAVING && <Status message={'Saving'} />}
 
+        {/* Show the user a Delete animation */}
         {mode === DELETE && <Status message={'Deleting'} />}
+
+        {/* Show the user reassurance message if they want to delete */}
         {mode === CONFIRM && (
           <Confirm
             message={'Are you sure?'}
@@ -114,9 +126,13 @@ const Appointment = ({
             onCancel={back}
           />
         )}
+
+        {/* Show the user a server error on DELETE */}
         {mode === ERROR_DELETE && (
           <Error message={"Couldn't Delete, Please try again"} onClose={back} />
         )}
+
+        {/* Show the user a server error on SAVE*/}
         {mode === ERROR_SAVE && (
           <Error message={"Couldn't Save, Please try again"} onClose={back} />
         )}
