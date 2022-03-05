@@ -13,17 +13,19 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
+  // remaining spots to add appointments
   const remainingSpots = (appointments, days) => {
     let appointmentsId = [];
     let count = 0;
+    //loop over days
     const spots = days.map((day) => {
+      //if day name is equal to the state day
       if (day.name === state.day) {
+        //push appointments into the appointmentsId array
         appointmentsId = day.appointments;
-        console.log('appointmentsId: ', day.appointments);
-
         for (let key in appointments) {
           const remainingAppointment = appointments[key];
-
+          // if appointments Id included the key of appointments and it is equal to null increase the count of remaining spots
           if (appointmentsId.includes(remainingAppointment.id)) {
             if (remainingAppointment.interview === null) {
               count++;
@@ -39,7 +41,7 @@ const useApplicationData = () => {
   };
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
-
+  // side effect, changes happen once [] when the component gets mounted
   useEffect(() => {
     Promise.all([
       axios.get(GET_DAYS),
@@ -51,7 +53,7 @@ const useApplicationData = () => {
           ...prev,
           days: all[0].data,
           appointments: all[1].data,
-          interviewers: all[2].data,
+          interviewers: all[2].data
         }));
       })
       .catch((error) => {
@@ -59,6 +61,7 @@ const useApplicationData = () => {
       });
   }, []);
 
+  // book interview using the spread operator including existing previous interviews that are stored in the state
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -69,32 +72,34 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    const availableSpots = remainingSpots(appointments, state.days);
 
-    return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
-      console.log(res.data);
+    const availableSpots = remainingSpots(appointments, state.days);
+    // using axios to add new id and new appointment to the server
+    axios.put(`/api/appointments/${id}`, appointment).then(() => (
       setState({
         ...state,
         appointments,
+        // adding remaining spots function to state
         days: availableSpots,
-      });
-    });
+      })
+    ));
   };
 
   const deleteInterview = (id) => {
-    console.log(id);
+    //get all existing appointments
     const appointments = {
       ...state.appointments,
     };
+    // change the interview state to null
     appointments[id].interview = null;
     const availableSpots = remainingSpots(appointments, state.days);
-    return axios.delete(`/api/appointments/${id}`).then(() => {
+    axios.delete(`/api/appointments/${id}`).then(() => (
       setState({
         ...state,
         appointments,
         days: availableSpots,
-      });
-    });
+      })
+    ));
   };
   return {
     state,
