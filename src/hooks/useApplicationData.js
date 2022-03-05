@@ -75,14 +75,15 @@ const useApplicationData = () => {
 
     const availableSpots = remainingSpots(appointments, state.days);
     // using axios to add new id and new appointment to the server
-    axios.put(`/api/appointments/${id}`, appointment).then(() => (
+    return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
+      console.log(res.data);
       setState({
         ...state,
         appointments,
         // adding remaining spots function to state
         days: availableSpots,
-      })
-    ));
+      });
+    });
   };
 
   const deleteInterview = (id) => {
@@ -93,13 +94,13 @@ const useApplicationData = () => {
     // change the interview state to null
     appointments[id].interview = null;
     const availableSpots = remainingSpots(appointments, state.days);
-    axios.delete(`/api/appointments/${id}`).then(() => (
+    return axios.delete(`/api/appointments/${id}`).then(() => {
       setState({
         ...state,
         appointments,
         days: availableSpots,
-      })
-    ));
+      });
+    });
   };
   return {
     state,
